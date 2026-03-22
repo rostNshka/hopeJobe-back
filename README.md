@@ -11,7 +11,8 @@ node.js, \
 express, \
 Prisma, \
 PostgresSQL, \
-npm \
+Postman, \
+npm 
 
 ## 🚀 Использование:
 Требования: Для установки и запуска проекта, необходим NodeJS v8+.
