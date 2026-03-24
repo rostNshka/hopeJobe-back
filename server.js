@@ -8,6 +8,10 @@ async function main() {
 
   app.get('/api', vacancyRouter)
 
+  app.all(/.*/, (req, res) => {
+    res.status(404).json({ message: 'Not Found' })
+  })
+
   app.listen(4200, () => console.log(`Server started on port 4200`))
 }
 
