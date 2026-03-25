@@ -6,7 +6,7 @@ const app = express()
 async function main() {
   app.use(express.json())
 
-  app.get('/api', vacancyRouter)
+  app.use('/api', vacancyRouter)
 
   app.all(/.*/, (req, res) => {
     res.status(404).json({ message: 'Not Found' })
