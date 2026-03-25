@@ -14,6 +14,14 @@ async function main() {
   app.all(/.*/, (req, res) => {
     res.status(404).json({ message: 'Not Found' })
   })
+
+  app.use((err, req, res, next) => {
+    console.error(err)
+    res.status(500).json({
+      message: err.message,
+    })
+  })
+
   const PORT = process.env.PORT || 4200
 
   app.listen(PORT, () => console.log(`Server started on port ${PORT}`))

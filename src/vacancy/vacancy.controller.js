@@ -1,11 +1,12 @@
 import { Router } from 'express'
 import { VacancyService } from './vacancy.service.js'
+import { auth } from '../auth.middleware.js'
 
 const router = Router()
 
 const vacancyService = new VacancyService()
 
-router.post('/', (req, res) => {
+router.post('/', auth, (req, res) => {
   if (!req.body?.text?.length) {
     return res.status(400).json({ message: 'Text is required' })
   }
