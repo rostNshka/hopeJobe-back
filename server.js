@@ -1,5 +1,8 @@
 import express from 'express'
 import { vacancyRouter } from './src/vacancy/vacancy.controller.js'
+import dotenv from 'dotenv'
+
+dotenv.config({ quiet: true })
 
 const app = express()
 
@@ -11,8 +14,9 @@ async function main() {
   app.all(/.*/, (req, res) => {
     res.status(404).json({ message: 'Not Found' })
   })
+  const PORT = process.env.PORT || 4200
 
-  app.listen(4200, () => console.log(`Server started on port 4200`))
+  app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
 }
 
 main()
