@@ -23,8 +23,12 @@ async function main() {
   })
 
   const PORT = process.env.PORT || 4200
-
-  app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
+  app.listen(PORT, () => {
+    console.log(`✅ Server started on port ${PORT}`)
+    console.log(`📍 API URL: http://localhost:${PORT}/api`)
+  })
 }
 
-main()
+main().catch(err => {
+  console.error('Failed to start server:', err)
+})
