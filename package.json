@@ -2,11 +2,11 @@
   "name": "node-js",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "src/server.js",
   "type": "module",
   "scripts": {
     "start": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "dev": "nodemon src/server.js"
   },
   "repository": {
     "type": "git",
@@ -19,11 +19,15 @@
   },
   "homepage": "https://github.com/rostNshka/hopeJobe-back#readme",
   "dependencies": {
+    "@prisma/client": "^7.6.0",
+    "bcryptjs": "^3.0.3",
+    "cors": "^2.8.6",
     "dotenv": "^17.3.1",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3"
   },
   "devDependencies": {
     "nodemon": "^3.1.14",
-    "prisma": "^7.5.0"
+    "prisma": "^7.6.0"
   }
 }
