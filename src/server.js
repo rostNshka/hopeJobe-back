@@ -1,34 +1,32 @@
-import express from 'express'
-import { vacancyRouter } from './src/vacancy/vacancy.controller.js'
-import dotenv from 'dotenv'
+const express = require('express')
+const cors = require('cors')
+const dotenv = require('dotenv')
+const { PrismaClient } = require('@prisma/client')
+const authRoutes = require('./routes/authRoutes.js')
+const vacancyRoutes = require('./routes/vacancyRoutes.js')
+const responseRoutes = require('./routes/responseRoutes.js')
+const userRoutes = require('./routes/userRoutes.js')
 
-dotenv.config({ quiet: true })
+dotenv.config()
 
 const app = express()
+const prisma = new PrismaClient()
 
-async function main() {
-  app.use(express.json())
+app.use(cors())
+app.use(express.json())
 
-  app.use('/api', vacancyRouter)
+app.use('/api/auth', authRoutes)
+app.use('/api/vacancies', vacancyRoutes)
+app.use('/api/responses', responseRoutes)
+app.use('/api/users', userRoutes)
 
-  app.all(/.*/, (req, res) => {
-    res.status(404).json({ message: 'Not Found' })
-  })
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+  res.status(500).json({ message: 'Something went wrong!' })
+})
 
-  app.use((err, req, res, next) => {
-    console.error(err)
-    res.status(500).json({
-      message: err.message,
-    })
-  })
+const PORT = process.env.PORT || 4200
 
-  const PORT = process.env.PORT || 4200
-  app.listen(PORT, () => {
-    console.log(`✅ Server started on port ${PORT}`)
-    console.log(`📍 API URL: http://localhost:${PORT}/api`)
-  })
-}
-
-main().catch(err => {
-  console.error('Failed to start server:', err)
+app.listen(PORT, () => {
+  console.log(`Сервер запущен на порте: ${PORT}`)
 })
