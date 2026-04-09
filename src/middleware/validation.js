@@ -1,11 +1,9 @@
-const { body, param, query, validationResult } = require('express-validator');
-const { validateEmail, validatePassword } = require('../utils/validation');
-const { PrismaClient } = require('@prisma/client');
-
-const prisma = new PrismaClient();
+const { body, param, query, validationResult } = require('express-validator')
+const { validateEmail, validatePassword } = require('../utils/validation')
+const prisma = require('../../prisma.js')
 
 const handleValidationErrors = (req, res, next) => {
-  const errors = validationResult(req);
+  const errors = validationResult(req)
   if (!errors.isEmpty()) {
     return res.status(400).json({
       message: 'Ошибка валидации',
@@ -42,7 +40,7 @@ const validateRegistration = [
       if (existingUser) {
         throw new Error('Электронная почта уже используется');
       }
-      return true;
+      return true
     }),
 
   body('password')
