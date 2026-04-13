@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const prisma = require('../../prisma.js')
+const prisma = require('../../prisma-backup.js')
 
 /**
  * Register a new user

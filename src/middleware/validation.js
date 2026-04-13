@@ -1,6 +1,6 @@
 const { body, param, query, validationResult } = require('express-validator')
 const { validateEmail, validatePassword } = require('../utils/validation')
-const prisma = require('../../prisma.js')
+const prisma = require('../../prisma-backup.js')
 
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req)

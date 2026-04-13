@@ -1,4 +1,4 @@
-const prisma = require('../../prisma.js')
+const prisma = require('../../prisma-backup.js')
 
 /**
  * Добавить вакансию в избранное
