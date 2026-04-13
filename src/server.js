@@ -19,11 +19,18 @@ app.use('/api/vacancies', vacancyRoutes)
 app.use('/api/responses', responseRoutes)
 app.use('/api/users', userRoutes)
 
-app.use((err, req, res) => {
+app.use((err, req, res, next) => {
   console.error('Ошибка:', err?.stack || err)
   res?.status(500).json({
     message: 'Something went wrong!',
     error: process.env.NODE_ENV === 'development' ? err?.message : undefined
+  })
+})
+
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: `${req.method} ${req.url} не найден`
   })
 })
 
