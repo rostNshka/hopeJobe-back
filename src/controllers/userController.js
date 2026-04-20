@@ -125,4 +125,25 @@ const updateProfile = async (req, res) => {
   }
 }
 
-module.exports = { getProfile, updateProfile }
+const getUserStats = async (req, res) => {
+  try {
+    const totalUsers = await prisma.user.count()
+    const employers = await prisma.employer.count()
+
+    res.json({
+      success: true,
+      data: {
+        total: totalUsers,
+        employers
+      }
+    })
+  } catch (error) {
+    console.error('Ошибка подключения:', error)
+    res.status(500).json({
+      success: false,
+      message: 'Ошибка получения статистики'
+    })
+  }
+}
+
+module.exports = { getProfile, updateProfile, getUserStats }
