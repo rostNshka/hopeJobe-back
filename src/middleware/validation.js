@@ -229,8 +229,6 @@ module.exports = {
   validateLogin,
   validateVacancy,
   validateVacancyUpdate,
-  validateAddToFavorites,
-  validateRemoveFromFavorites,
   validateVacancyId,
   validateProfileUpdate,
   validatePagination
