@@ -169,24 +169,6 @@ const validateVacancyUpdate = [
   handleValidationErrors
 ]
 
-const validateAddToFavorites = [
-  body('vacancyId')
-    .isInt()
-    .withMessage('Неверный идентификатор вакансии')
-    .toInt(),
-
-  handleValidationErrors
-]
-
-const validateRemoveFromFavorites = [
-  param('vacancyId')
-    .isInt()
-    .withMessage('Неверный идентификатор вакансии')
-    .toInt(),
-
-  handleValidationErrors
-]
-
 const validateVacancyId = [
   param('id')
     .isInt()

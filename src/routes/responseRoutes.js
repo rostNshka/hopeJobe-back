@@ -29,20 +29,20 @@ router.get('/', getUserFavorites)
  * @desc Add vacancy to favorites
  * @access Private
  */
-router.post('/', validateAddToFavorites, addToFavorites)
+router.post('/', addToFavorites)
 
 /**
  * @route DELETE /api/responses/:vacancyId
  * @desc Remove vacancy from favorites
  * @access Private
  */
-router.delete('/:vacancyId', validateRemoveFromFavorites, removeFromFavorites)
+router.delete('/:vacancyId', removeFromFavorites)
 
 /**
  * @route GET /api/responses/check/:vacancyId
  * @desc Check if vacancy is in user's favorites
  * @access Private
  */
-router.get('/check/:vacancyId', validateVacancyId, checkFavoriteStatus)
+router.get('/check/:vacancyId', checkFavoriteStatus)
 
 module.exports = router
