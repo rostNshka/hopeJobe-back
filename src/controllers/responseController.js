@@ -80,7 +80,6 @@ const removeFromFavorites = async (req, res) => {
     const { vacancyId } = req.params
     const userId = req.user.id
 
-    // Проверка существования записи
     const response = await prisma.response.findUnique({
       where: {
         userId_vacancyId: {
