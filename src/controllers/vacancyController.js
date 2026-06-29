@@ -30,7 +30,6 @@ const createVacancy = async (req, res) => {
   })
 
   res.status(201).json({
-    success: true,
     data: vacancy,
   })
 }
@@ -65,7 +64,6 @@ const getAllVacancies = async (req, res) => {
   ])
 
   res.json({
-    success: true,
     data: vacancies,
     pagination: {
       page,
@@ -106,13 +104,11 @@ const getVacancyById = async (req, res) => {
 
   if (!vacancy) {
     return res.status(404).json({
-      success: false,
       message: 'Вакансия не найдена',
     })
   }
 
   res.json({
-    success: true,
     data: vacancy,
   })
 }
@@ -160,7 +156,6 @@ const getEmployerVacancies = async (req, res) => {
   ])
 
   res.json({
-    success: true,
     data: vacancies,
     pagination: {
       page,
@@ -189,7 +184,6 @@ const updateVacancy = async (req, res) => {
 
   if (!vacancy) {
     return res.status(404).json({
-      success: false,
       message: 'Вакансия не найдена или у вас нет прав для её обновления',
     })
   }
@@ -215,7 +209,6 @@ const updateVacancy = async (req, res) => {
   })
 
   res.json({
-    success: true,
     data: updatedVacancy,
   })
 }
@@ -237,7 +230,6 @@ const deleteVacancy = async (req, res) => {
 
   if (!vacancy) {
     return res.status(404).json({
-      success: false,
       message: 'Вакансия не найдена или у вас нет прав для её удаления',
     })
   }
@@ -247,7 +239,6 @@ const deleteVacancy = async (req, res) => {
   })
 
   res.json({
-    success: true,
     message: 'Вакансия успешно удалена',
   })
 }

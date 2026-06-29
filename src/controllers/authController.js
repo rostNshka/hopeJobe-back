@@ -51,7 +51,6 @@ const register = async (req, res) => {
   )
 
   res.status(201).json({
-    success: true,
     message: 'Пользователь создан',
     token,
     user: {
@@ -75,7 +74,6 @@ const login = async (req, res) => {
 
   if (!user) {
     return res.status(401).json({
-      success: false,
       message: 'Неверные данные',
     })
   }
@@ -84,7 +82,6 @@ const login = async (req, res) => {
 
   if (!isValidPassword) {
     return res.status(401).json({
-      success: false,
       message: 'Неверные данные',
     })
   }
@@ -107,7 +104,6 @@ const login = async (req, res) => {
   )
 
   res.json({
-    success: true,
     message: 'Вход в систему прошел успешно',
     token,
     user: {

@@ -16,7 +16,6 @@ const addToFavorites = async (req, res) => {
 
   if (!vacancy) {
     return res.status(404).json({
-      success: false,
       message: 'Вакансия не найдена',
     })
   }
@@ -32,7 +31,6 @@ const addToFavorites = async (req, res) => {
 
   if (existingResponse) {
     return res.status(400).json({
-      success: false,
       message: 'Вакансия уже находится в избранном',
     })
   }
@@ -57,7 +55,6 @@ const addToFavorites = async (req, res) => {
   })
 
   res.status(201).json({
-    success: true,
     data: response,
   })
 }
@@ -82,7 +79,6 @@ const removeFromFavorites = async (req, res) => {
 
   if (!response) {
     return res.status(404).json({
-      success: false,
       message: 'Вакансия не найдена в избранном',
     })
   }
@@ -97,7 +93,6 @@ const removeFromFavorites = async (req, res) => {
   })
 
   res.json({
-    success: true,
     message: 'Вакансия успешно удалена из избранного',
   })
 }
@@ -128,7 +123,6 @@ const getUserFavorites = async (req, res) => {
   })
 
   res.json({
-    success: true,
     data: favorites,
   })
 }
@@ -152,7 +146,6 @@ const checkFavoriteStatus = async (req, res) => {
   })
 
   res.json({
-    success: true,
     data: {
       isFavorite: !!favorite,
     },

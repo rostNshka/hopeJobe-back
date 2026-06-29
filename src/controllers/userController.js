@@ -41,13 +41,11 @@ const getProfile = async (req, res) => {
 
   if (!profile) {
     return res.status(404).json({
-      success: false,
       message: 'Профиль не найден',
     })
   }
 
   res.json({
-    success: true,
     data: profile,
   })
 }
@@ -102,7 +100,6 @@ const updateProfile = async (req, res) => {
   }
 
   res.json({
-    success: true,
     data: updatedProfile,
     message: 'Профиль успешно обновлен',
   })
@@ -114,7 +111,6 @@ const getUserStats = async (req, res) => {
   const employers = await prisma.employer.count()
 
   res.json({
-    success: true,
     data: {
       total: totalUsers,
       employers,
