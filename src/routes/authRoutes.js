@@ -1,6 +1,7 @@
 const express = require('express');
-const { register, login } = require('../controllers/authController');
+const { register, login, refresh, logout } = require('../controllers/authController');
 const { validateRegistration, validateLogin } = require('../middleware/validation');
+const { auth } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -17,5 +18,20 @@ router.post('/register', validateRegistration, register);
  * @access Public
  */
 router.post('/login', validateLogin, login);
+
+/**
+ * @route POST /api/auth/refresh
+ * @desc Refresh access token
+ * @access Public
+ */
+router.post('/refresh', refresh);
+
+/**
+ * @route POST /api/auth/logout
+ * @desc Logout user
+ * @access Private
+ */
+router.post('/logout', auth, logout);
+
 
 module.exports = router;

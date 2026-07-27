@@ -6,7 +6,6 @@ const asyncHandler = require('../middleware/asyncHandler')
  * @route POST /api/vacancies
  */
 const createVacancy = async (req, res) => {
-
   const { title, location, description, workType, salary } = req.body
   const employerId = req.employer.id
 
@@ -35,17 +34,31 @@ const createVacancy = async (req, res) => {
 }
 
 /**
- * Get all vacancies with pagination
+ * Get all vacancies with pagination and search
  * @route GET /api/vacancies
  */
 const getAllVacancies = async (req, res) => {
-
   const page = parseInt(req.query.page) || 1
-  const limit = parseInt(req.query.limit) || 10
+  const limit = parseInt(req.query.limit) || 9
   const skip = (page - 1) * limit
+  const search = req.query.search || ''
+
+  const whereCondition = search ? {
+    OR: [
+      { title: { contains: search, mode: 'insensitive' } },
+      { description: { contains: search, mode: 'insensitive' } },
+      { location: { contains: search, mode: 'insensitive' } },
+      {
+        employer: {
+          companyName: { contains: search, mode: 'insensitive' }
+        }
+      }
+    ]
+  } : {}
 
   const [vacancies, total] = await Promise.all([
     prisma.vacancy.findMany({
+      where: whereCondition,
       skip,
       take: limit,
       include: {
@@ -60,7 +73,9 @@ const getAllVacancies = async (req, res) => {
         createdAt: 'desc',
       },
     }),
-    prisma.vacancy.count(),
+    prisma.vacancy.count({
+      where: whereCondition,
+    }),
   ])
 
   res.json({
@@ -79,7 +94,6 @@ const getAllVacancies = async (req, res) => {
  * @route GET /api/vacancies/:id
  */
 const getVacancyById = async (req, res) => {
-
   const { id } = req.params
 
   const vacancy = await prisma.vacancy.findUnique({
@@ -114,18 +128,29 @@ const getVacancyById = async (req, res) => {
 }
 
 /**
- * Get employer's vacancies
+ * Get employer's vacancies with search
  * @route GET /api/vacancies/employer/my-vacancies
  */
 const getEmployerVacancies = async (req, res) => {
-
   const page = parseInt(req.query.page) || 1
   const limit = parseInt(req.query.limit) || 10
   const skip = (page - 1) * limit
+  const search = req.query.search || ''
+
+  const whereCondition = {
+    employerId: req.employer.id,
+    ...(search ? {
+      OR: [
+        { title: { contains: search, mode: 'insensitive' } },
+        { description: { contains: search, mode: 'insensitive' } },
+        { location: { contains: search, mode: 'insensitive' } },
+      ]
+    } : {})
+  }
 
   const [vacancies, total] = await Promise.all([
     prisma.vacancy.findMany({
-      where: { employerId: req.employer.id },
+      where: whereCondition,
       skip,
       take: limit,
       include: {
@@ -151,7 +176,7 @@ const getEmployerVacancies = async (req, res) => {
       },
     }),
     prisma.vacancy.count({
-      where: { employerId: req.employer.id },
+      where: whereCondition,
     }),
   ])
 
@@ -171,7 +196,6 @@ const getEmployerVacancies = async (req, res) => {
  * @route PUT /api/vacancies/:id
  */
 const updateVacancy = async (req, res) => {
-
   const { id } = req.params
   const { title, location, description, workType, salary } = req.body
 
